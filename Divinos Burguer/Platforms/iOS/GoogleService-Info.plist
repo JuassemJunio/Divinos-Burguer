@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>1087786763726-ciddmj5g86b2ijrqj8hqjs2qei5mr95i.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1087786763726-ciddmj5g86b2ijrqj8hqjs2qei5mr95i</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1087786763726-ibr7m4otl86ponorrrm8jhefr5lnemq5.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyD2uaketn7cL03l3qfBpD9YSijpfiDrPhU</string>
 	<key>GCM_SENDER_ID</key>
@@ -25,6 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1087786763726:ios:a1ce207e2b2492ad95979f</string>
+	<string>1:1087786763726:ios:d6fc36772e482d9595979f</string>
+	<key>DATABASE_URL</key>
+	<string>https://divinos-burguer-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

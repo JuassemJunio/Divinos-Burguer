@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Divinos_Burguer.Views.LoginPage"
+             Shell.NavBarIsVisible="False"
+             Title="Login"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" 
+                           Padding="30"
+                           VerticalOptions="Center">
+
+            <!-- Logo/Cabeçalho -->
+            <Image Source="logo.png"
+                   HeightRequest="100"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,30"/>
+
+            <!-- Título -->
+            <Label Text="Bem-vindo ao Divino's Burguer"
+                   FontSize="Title"
+                   HorizontalOptions="Center"
+                   TextColor="{AppThemeBinding Light=#FF5722, Dark=#FF7043}"/>
+
+            <Label Text="Faça login para continuar"
+                   FontSize="Subtitle"
+                   HorizontalOptions="Center"
+                   TextColor="{AppThemeBinding Light=Gray, Dark=LightGray}"/>
+
+            <!-- Campos de entrada -->
+            <Frame CornerRadius="10" 
+                   Padding="15"
+                   BackgroundColor="{AppThemeBinding Light=#FAFAFA, Dark=#252525}">
+                <VerticalStackLayout Spacing="15">
+                    <Entry Placeholder="Email"
+                           Keyboard="Email"
+                           Text="{Binding Email}"
+                           ClearButtonVisibility="WhileEditing">
+                      
+                    </Entry>
+
+                    <Entry Placeholder="Senha" 
+                           IsPassword="True"
+                           Text="{Binding Password}"
+                           ClearButtonVisibility="WhileEditing">
+                        
+                    </Entry>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Botão de login -->
+            <Button Text="Entrar" 
+                    Command="{Binding LoginCommand}"
+                    BackgroundColor="#FF5722"
+                    TextColor="White"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    FontAttributes="Bold"/>
+
+            <!-- Login com Google -->
+            <Button Text="Entrar com Google"
+                    Command="{Binding LoginWithGoogleCommand}"
+                    ImageSource="google_icon.png"
+                    BackgroundColor="White"
+                    TextColor="Black"
+                    BorderColor="LightGray"
+                    BorderWidth="1"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    FontAttributes="Bold"/>
+
+            <!-- Link para cadastro -->
+            <Label Text="Não tem uma conta? Cadastre-se"
+                   TextColor="{AppThemeBinding Light=#1976D2, Dark=#64B5F6}"
+                   HorizontalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToRegisterCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <!-- Esqueci a senha -->
+            <Label Text="Esqueci minha senha"
+                   TextColor="{AppThemeBinding Light=#757575, Dark=#BDBDBD}"
+                   HorizontalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
