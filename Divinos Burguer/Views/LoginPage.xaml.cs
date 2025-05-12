@@ -4,10 +4,9 @@ namespace Divinos_Burguer.Views;
 
 public partial class LoginPage : ContentPage
 {
-    private LoginPageViewModel _viewModel;
-    public LoginPage()
-	{
-		InitializeComponent();
-        BindingContext = _viewModel = new LoginPageViewModel();
+    public LoginPage(LoginPageViewModel viewModel)
+    {
+        InitializeComponent();
+        BindingContext = viewModel;
     }
 }

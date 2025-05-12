@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Plugin.Firebase.Auth;
 using Plugin.Firebase.Auth.Google;
 using Plugin.Firebase.Firestore;
+using System.Diagnostics;
 
 namespace Divinos_Burguer.ViewModel;
 
@@ -11,19 +12,19 @@ public partial class LoginPageViewModel : ObservableObject
     private readonly IFirebaseAuth _auth;
     private readonly IFirebaseAuthGoogle _authGoogle;
     private readonly IFirebaseFirestore _firestore;
-    private readonly IUserRepository _userRepository;
+    private readonly IUserService _userService;
 
     // Construtor da ViewModel, inicializa as dependências com valores padrão se não forem fornecidos
     public LoginPageViewModel(
-        IFirebaseAuth auth = null,
-        IFirebaseAuthGoogle authGoogle = null,
-        IFirebaseFirestore firestore = null,
-        IUserRepository userRepository = null
+        IFirebaseAuth auth,
+        IFirebaseAuthGoogle authGoogle,
+        IFirebaseFirestore firestore,
+        IUserService userService
         )
     {
-        _auth = auth ?? CrossFirebaseAuth.Current;
-        _authGoogle = authGoogle ?? CrossFirebaseAuthGoogle.Current;
-        _userRepository = userRepository;
+        _auth = auth;
+        _authGoogle = authGoogle;
+        _userService = userService;
     }
 
     [ObservableProperty]
@@ -52,6 +53,8 @@ public partial class LoginPageViewModel : ObservableObject
         catch (Exception ex)
         {
             // Exibe uma mensagem de erro se o login falhar
+            Console.WriteLine(ex);
+            Debug.WriteLine(ex);
             await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
         }
     }
@@ -62,16 +65,36 @@ public partial class LoginPageViewModel : ObservableObject
     {
         try
         {
-            // Desconecta qualquer sessão anterior do Google
-            await _authGoogle.SignOutAsync();
+            // Verifica se há uma sessão ativa antes de desconectar
+            if (_auth.CurrentUser != null)
+            {
+                await _authGoogle.SignOutAsync();
+                await _auth.SignOutAsync();
+            }
+
             // Tenta realizar o login com Google
             var result = await _authGoogle.SignInWithGoogleAsync();
-            await HandleSuccessfulLogin(result);
+            
+            var a = await _auth.SignInWithCustomTokenAsync(result.GetIdTokenResultAsync().ToString());
+
+
+            // Verifica se o resultado é do tipo esperado
+            if (result is IFirebaseUser firebaseUser)
+            {
+                await HandleSuccessfulLogin(firebaseUser);
+            }
+            else
+            {
+                throw new InvalidCastException("O resultado do login com Google não é do tipo IFirebaseUser.");
+            }
         }
         catch (Exception ex)
         {
             // Exibe uma mensagem de erro se o login falhar
+            Console.WriteLine(ex);
+            Debug.WriteLine(ex);
             await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+          
         }
     }
 
@@ -79,7 +102,7 @@ public partial class LoginPageViewModel : ObservableObject
     private async Task HandleSuccessfulLogin(IFirebaseUser user)
     {
 
-        var a = await _userRepository.GetByIdAsync(user.Uid);
+        var a = await _userService.GetUserByIdAsync(user.Uid);
 
         //var userDocRef = _firestore.GetDocument($"users/{user.Uid}");
 

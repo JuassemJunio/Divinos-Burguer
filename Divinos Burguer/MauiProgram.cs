@@ -30,21 +30,18 @@ namespace Divinos_Burguer
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-#if DEBUG
-    		builder.Logging.AddDebug();
-#endif
-
             //Views
             builder.Services.AddSingleton<LoginPage>();
 
             //ViewModels
             builder.Services.AddSingleton<LoginPageViewModel>();
 
-            builder.Services.AddSingleton(_ => CrossFirebaseFirestore.Current);
-            builder.Services.AddSingleton(_ => CrossFirebaseStorage.Current);
+            //Repositories
+            builder.Services.AddSingleton<IUserRepository, UserRepository>();
 
+            //Services
             builder.Services.AddSingleton<IUserService, UserService>();
-
+            
             return builder.Build();
         }
 
@@ -66,6 +63,9 @@ namespace Divinos_Burguer
             });
 
             builder.Services.AddSingleton(_ => CrossFirebaseAuth.Current);
+            builder.Services.AddSingleton(_ => CrossFirebaseAuthGoogle.Current);
+            builder.Services.AddSingleton(_ => CrossFirebaseFirestore.Current);
+            builder.Services.AddSingleton(_ => CrossFirebaseStorage.Current);
             return builder;
         }
 
