@@ -13,20 +13,24 @@ public class UserService : IUserService
     public async Task<Users> GetUserByIdAsync(string id)
         => await _userRepository.GetByIdAsync(id);
 
+    public async Task AddUserAsync(Users user, string id)
+     => await _userRepository.AddAsync(user, id);
+
+    public async Task SoftDeleteUserAsync(string userId)
+        => await _userRepository.DeleteAsync(userId);
+
     //public async Task<Users> GetUserByEmailAsync(string email)
     //    => await _userRepository.GetByEmailAsync(email);
 
     //public async Task<IEnumerable<Users>> GetActiveUsersAsync()
     //    => await _userRepository.GetActiveUsersAsync();
 
-    //public async Task AddUserAsync(Users user)
-    //    => await _userRepository.AddAsync(user);
+
 
     //public async Task UpdateUserAsync(Users user)
     //    => await _userRepository.UpdateAsync(user);
 
-    //public async Task SoftDeleteUserAsync(string userId)
-    //    => await _userRepository.SoftDeleteAsync(userId);
+
 
     // Autenticação
     //public async Task<bool> AuthenticateAsync(string email, string password)

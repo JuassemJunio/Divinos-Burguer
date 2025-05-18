@@ -13,12 +13,28 @@ public abstract class BaseRepository<TEntity> : IRepository<TEntity>
 
     public async Task<TEntity> GetByIdAsync(string id)
     {
-        var document = await _firestore
+        IDocumentSnapshot<TEntity> document = await _firestore
             .GetCollection(CollectionName)
             .GetDocument(id)
             .GetDocumentSnapshotAsync<TEntity>();
 
-        return (TEntity)document;
+        return document.Data;
+    }
+
+    public async Task AddAsync(TEntity entity, string id)
+    {
+       await _firestore
+           .GetCollection(CollectionName)
+           .GetDocument(id) 
+           .SetDataAsync(entity);
+    }
+
+    public async Task DeleteAsync(string id)
+    {
+        await _firestore
+            .GetCollection(CollectionName)
+            .GetDocument(id)
+            .DeleteDocumentAsync();
     }
 
     //public async Task<IEnumerable<TEntity>> GetAllAsync()
@@ -32,12 +48,7 @@ public abstract class BaseRepository<TEntity> : IRepository<TEntity>
     //        .ToList() ?? new List<TEntity>();
     //}
 
-    //public async Task AddAsync(TEntity entity)
-    //{
-    //    await _firestore
-    //        .GetCollection(CollectionName)
-    //        .AddDocumentAsync(entity);
-    //}
+
 
     //public async Task UpdateAsync(TEntity entity)
     //{
@@ -47,13 +58,7 @@ public abstract class BaseRepository<TEntity> : IRepository<TEntity>
     //        .SetDataAsync(entity);
     //}
 
-    //public async Task DeleteAsync(string id)
-    //{
-    //    await _firestore
-    //        .GetCollection(CollectionName)
-    //        .GetDocument(id)
-    //        .DeleteDocumentAsync();
-    //}
+
 
     //// Método auxiliar para queries customizadas
     //protected async Task<IEnumerable<TEntity>> GetWhereAsync(string field, object value)
