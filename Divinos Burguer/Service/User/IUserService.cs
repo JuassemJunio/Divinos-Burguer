@@ -1,9 +1,14 @@
-﻿public interface IUserService
+﻿using Plugin.Firebase.Firestore;
+
+public interface IUserService
 {
+    Task<IDocumentReference> GetRefDocumentById(string id);
     Task<Users> GetByIdDocument(string id);
     Task AddDocument(Users user, string id);
+    Task UpdateDocument(Users user, string id);
+    Task<string> CreateDocument(Users user);
     Task DeleteDocument(string userId);
-    Task GetAllActiveDocuments();
+    Task<List<Users>> GetAllActiveDocuments();
     //Task<Users> GetUserByEmailAsync(string email);
     //Task<IEnumerable<Users>> GetActiveUsersAsync();
     //Task UpdateUserAsync(Users user);

@@ -11,7 +11,7 @@ public partial class LoginPageViewModel : ObservableObject
 {
     private readonly IFirebaseAuth _auth;
     private readonly IFirebaseAuthGoogle _authGoogle;
-    private readonly IUserService _useService;
+    private readonly IUserService _userService;
     private readonly ITermService _termService;
 
     public LoginPageViewModel(
@@ -23,7 +23,7 @@ public partial class LoginPageViewModel : ObservableObject
     {
         _auth = auth;
         _authGoogle = authGoogle;
-        _useService = userService;
+        _userService = userService;
         _termService = termService;
     }
 
@@ -69,6 +69,12 @@ public partial class LoginPageViewModel : ObservableObject
     private async Task LoginWithGoogle()
     {
 
+        //var a = await _userService.GetAllActiveDocuments();
+        //var a = await _userService.GetByIdDocument(_auth.CurrentUser?.Uid ?? string.Empty);
+        ////a.SoftDelete();
+        //a.Restore();
+        //await _userService.UpdateDocument(a, a.Id);
+
         if (_auth.CurrentUser != null)
             {
                 await _authGoogle.SignOutAsync();
@@ -84,7 +90,7 @@ public partial class LoginPageViewModel : ObservableObject
     // Método para lidar com o login bem-sucedido
     private async Task<Users> HandleSuccessfulLogin(IFirebaseUser firebaseUser)
     {
-            Users user = await _useService.GetByIdDocument(firebaseUser.Uid);
+            Users user = await _userService.GetByIdDocument(firebaseUser.Uid);
 
             if(user != null)
             {
@@ -109,10 +115,11 @@ public partial class LoginPageViewModel : ObservableObject
             Id = firebaseUser.Uid,
             Name = firebaseUser.DisplayName ?? "Novo Usuário",
             Email = firebaseUser.Email,
+            PhotoUrl = firebaseUser.PhotoUrl,
             TermsID = _termService.GetRefDocumentById(a.FirstOrDefault()?.Id ?? string.Empty).Result,
         };
 
-         await _useService.AddDocument(newUser, newUser.Id);
+         await _userService.AddDocument(newUser, newUser.Id);
 
         return newUser;
 

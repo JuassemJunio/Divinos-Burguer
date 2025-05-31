@@ -19,6 +19,9 @@ public class TermService : ITermService
     public async Task AddDocument(Terms term, string id)
      => await _termRepository.AddDocument(term, id);
 
+    public async Task UpdateDocument(Terms user, string id)
+     => await _termRepository.UpdateDocument(user, id);
+
     public async Task<string> CreateDocument(Terms term)
      => await _termRepository.CreateDocument(term);
 

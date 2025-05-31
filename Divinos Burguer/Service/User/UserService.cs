@@ -1,4 +1,6 @@
 ﻿
+using Plugin.Firebase.Firestore;
+
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
@@ -10,16 +12,25 @@ public class UserService : IUserService
     }
 
     // Operações básicas
+    public async Task<IDocumentReference> GetRefDocumentById(string id)
+    => await _userRepository.GetRefDocumentById(id);
+
     public async Task<Users> GetByIdDocument(string id)
         => await _userRepository.GetByIdDocument(id);
 
     public async Task AddDocument(Users user, string id)
      => await _userRepository.AddDocument(user, id);
 
+    public async Task UpdateDocument(Users user, string id)
+     => await _userRepository.UpdateDocument(user, id);
+
+    public async Task<string> CreateDocument(Users user)
+    => await _userRepository.CreateDocument(user);
+
     public async Task DeleteDocument(string userId)
         => await _userRepository.DeleteDocument(userId);
 
-    public async Task GetAllActiveDocuments()
+    public async Task<List<Users>> GetAllActiveDocuments()
         => await _userRepository.GetAllActiveDocuments();
 
     //public async Task<Users> GetUserByEmailAsync(string email)

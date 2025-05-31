@@ -11,6 +11,9 @@ public class Users : IFirestoreObject
     [FirestoreProperty("email")]
     public string Email { get; set; } = string.Empty;
 
+    [FirestoreProperty("photoUrl")]
+    public string PhotoUrl { get; set; } = string.Empty;
+
     [FirestoreProperty("terms_id")]
     public IDocumentReference TermsID { get; set; } = default!;
 
