@@ -11,17 +11,20 @@ public partial class LoginPageViewModel : ObservableObject
 {
     private readonly IFirebaseAuth _auth;
     private readonly IFirebaseAuthGoogle _authGoogle;
-    private readonly IUserService _userService;
+    private readonly IUserService _useService;
+    private readonly ITermService _termService;
 
     public LoginPageViewModel(
         IFirebaseAuth auth,
         IFirebaseAuthGoogle authGoogle,
-        IUserService userService
+        IUserService userService,
+        ITermService termService
         )
     {
         _auth = auth;
         _authGoogle = authGoogle;
-        _userService = userService;
+        _useService = userService;
+        _termService = termService;
     }
 
     [ObservableProperty]
@@ -65,8 +68,8 @@ public partial class LoginPageViewModel : ObservableObject
     [RelayCommand]
     private async Task LoginWithGoogle()
     {
-       
-            if (_auth.CurrentUser != null)
+
+        if (_auth.CurrentUser != null)
             {
                 await _authGoogle.SignOutAsync();
                 await _auth.SignOutAsync();
@@ -81,7 +84,7 @@ public partial class LoginPageViewModel : ObservableObject
     // Método para lidar com o login bem-sucedido
     private async Task<Users> HandleSuccessfulLogin(IFirebaseUser firebaseUser)
     {
-            Users user = await _userService.GetUserByIdAsync(firebaseUser.Uid);
+            Users user = await _useService.GetByIdDocument(firebaseUser.Uid);
 
             if(user != null)
             {
@@ -99,15 +102,17 @@ public partial class LoginPageViewModel : ObservableObject
 
     private async Task<Users> CreateUserRecord(IFirebaseUser firebaseUser)
     {
+        var a = await _termService.GetAllActiveDocuments();
+
         var newUser = new Users
         {
             Id = firebaseUser.Uid,
             Name = firebaseUser.DisplayName ?? "Novo Usuário",
-            IsActive = true,
-            CreatedAt = DateTimeOffset.UtcNow 
+            Email = firebaseUser.Email,
+            TermsID = _termService.GetRefDocumentById(a.FirstOrDefault()?.Id ?? string.Empty).Result,
         };
 
-         await _userService.AddUserAsync(newUser, newUser.Id);
+         await _useService.AddDocument(newUser, newUser.Id);
 
         return newUser;
 

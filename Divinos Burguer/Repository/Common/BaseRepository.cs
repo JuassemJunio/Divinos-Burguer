@@ -11,7 +11,15 @@ public abstract class BaseRepository<TEntity> : IRepository<TEntity>
         _firestore = firestore;
     }
 
-    public async Task<TEntity> GetByIdAsync(string id)
+    public async Task<IDocumentReference> GetRefDocumentById(string id)
+    {
+
+        return await Task.FromResult(_firestore
+            .GetCollection(CollectionName)
+            .GetDocument(id));
+    }
+
+    public async Task<TEntity> GetByIdDocument(string id)
     {
         IDocumentSnapshot<TEntity> document = await _firestore
             .GetCollection(CollectionName)
@@ -21,7 +29,7 @@ public abstract class BaseRepository<TEntity> : IRepository<TEntity>
         return document.Data;
     }
 
-    public async Task AddAsync(TEntity entity, string id)
+    public async Task AddDocument(TEntity entity, string id)
     {
        await _firestore
            .GetCollection(CollectionName)
@@ -29,12 +37,31 @@ public abstract class BaseRepository<TEntity> : IRepository<TEntity>
            .SetDataAsync(entity);
     }
 
-    public async Task DeleteAsync(string id)
+    public async Task<string> CreateDocument(TEntity entity)
+    {
+        IDocumentReference document = await _firestore.GetCollection(CollectionName).AddDocumentAsync(entity);
+        return document.Id;
+    }
+
+    public async Task DeleteDocument(string id)
     {
         await _firestore
             .GetCollection(CollectionName)
             .GetDocument(id)
             .DeleteDocumentAsync();
+    }
+    public async Task<List<TEntity>> GetAllActiveDocuments()
+    {
+        IQuerySnapshot<TEntity> querySnapshot = await _firestore
+            .GetCollection(CollectionName)
+            .WhereEqualsTo("is_active", true)
+            .GetDocumentsAsync<TEntity>();
+
+        var documents = querySnapshot.Documents
+                .Select(doc => doc.Data)
+                .ToList();
+
+        return documents;
     }
 
     //public async Task<IEnumerable<TEntity>> GetAllAsync()

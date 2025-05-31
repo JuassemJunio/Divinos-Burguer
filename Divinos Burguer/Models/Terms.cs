@@ -1,18 +1,15 @@
-﻿using Plugin.Firebase.Firestore;
+using Plugin.Firebase.Firestore;
 
-public class Users : IFirestoreObject
+public class Terms : IFirestoreObject
 {
     [FirestoreDocumentId]
     public string Id { get; set; } = string.Empty;
 
-    [FirestoreProperty("name")]
-    public string Name { get; set; } = string.Empty;
+    [FirestoreProperty("version")]
+    public string Version { get; set; } = string.Empty;
 
-    [FirestoreProperty("email")]
-    public string Email { get; set; } = string.Empty;
-
-    [FirestoreProperty("terms_id")]
-    public IDocumentReference TermsID { get; set; } = default!;
+    [FirestoreProperty("content")]
+    public string Content { get; set; } = string.Empty;
 
     [FirestoreProperty("is_active")]
     public bool IsActive { get; set; } = true;
@@ -24,7 +21,7 @@ public class Users : IFirestoreObject
     public DateTimeOffset UpdatedAt { get; set; }
 
     [FirestoreProperty("deleted_at")]
-    public DateTimeOffset? DeletedAt { get; set; } 
+    public DateTimeOffset? DeletedAt { get; set; }
 
     public void SoftDelete()
     {

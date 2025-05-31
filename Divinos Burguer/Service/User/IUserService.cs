@@ -1,8 +1,9 @@
 ﻿public interface IUserService
 {
-    Task<Users> GetUserByIdAsync(string id);
-    Task AddUserAsync(Users user, string id);
-    Task SoftDeleteUserAsync(string userId);
+    Task<Users> GetByIdDocument(string id);
+    Task AddDocument(Users user, string id);
+    Task DeleteDocument(string userId);
+    Task GetAllActiveDocuments();
     //Task<Users> GetUserByEmailAsync(string email);
     //Task<IEnumerable<Users>> GetActiveUsersAsync();
     //Task UpdateUserAsync(Users user);

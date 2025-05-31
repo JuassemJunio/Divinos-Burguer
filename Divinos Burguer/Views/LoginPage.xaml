@@ -11,11 +11,21 @@
                            Padding="30"
                            VerticalOptions="Center">
 
-            <!-- Logo/Cabeçalho -->
-            <Image Source="logo.png"
-                   HeightRequest="100"
-                   HorizontalOptions="Center"
-                   Margin="0,0,0,30"/>
+            <!-- Logo/Cabeçalho Redonda -->
+            <Border
+                StrokeShape="Ellipse"
+                HeightRequest="100"
+                WidthRequest="100"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Background="Transparent"
+                StrokeThickness="0"
+                Margin="0,0,0,30">
+                <Image Source="logo.png"
+                       Aspect="AspectFill"
+                       HeightRequest="100"
+                       WidthRequest="100"/>
+            </Border>
 
             <!-- Título -->
             <Label Text="Bem-vindo ao Divino's Burguer"
@@ -29,25 +39,22 @@
                    TextColor="{AppThemeBinding Light=Gray, Dark=LightGray}"/>
 
             <!-- Campos de entrada -->
-            <Frame CornerRadius="10" 
-                   Padding="15"
-                   BackgroundColor="{AppThemeBinding Light=#FAFAFA, Dark=#252525}">
+            <Border
+                StrokeShape="RoundRectangle 10"
+                StrokeThickness="0"
+                Background="{AppThemeBinding Light=#FAFAFA, Dark=#252525}"
+                Padding="15">
                 <VerticalStackLayout Spacing="15">
                     <Entry Placeholder="Email"
                            Keyboard="Email"
                            Text="{Binding Email}"
-                           ClearButtonVisibility="WhileEditing">
-                      
-                    </Entry>
-
+                           ClearButtonVisibility="WhileEditing"/>
                     <Entry Placeholder="Senha" 
                            IsPassword="True"
                            Text="{Binding Password}"
-                           ClearButtonVisibility="WhileEditing">
-                        
-                    </Entry>
+                           ClearButtonVisibility="WhileEditing"/>
                 </VerticalStackLayout>
-            </Frame>
+            </Border>
 
             <!-- Botão de login -->
             <Button Text="Entrar" 
@@ -61,7 +68,7 @@
             <!-- Login com Google -->
             <Button Text="Entrar com Google"
                     Command="{Binding LoginWithGoogleCommand}"
-                    ImageSource="google_icon.png"
+                    ImageSource="google.png"
                     BackgroundColor="White"
                     TextColor="Black"
                     BorderColor="LightGray"

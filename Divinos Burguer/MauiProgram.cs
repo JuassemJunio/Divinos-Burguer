@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Divinos_Burguer.ViewModel;
 using Divinos_Burguer.Views;
-using Microsoft.Extensions.Logging;
 using Microsoft.Maui.LifecycleEvents;
 using Plugin.Firebase.Auth;
 using Plugin.Firebase.Auth.Google;
@@ -21,8 +20,13 @@ namespace Divinos_Burguer
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
-            builder.UseMauiApp<App>()
+            builder
+                .UseMauiApp<App>()
                 .RegisterFirebaseServices()
+                .RegisterRepositories()
+                .RegisterServices()
+                .RegisterViewModels()
+                .RegisterViews()
                 .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
@@ -30,18 +34,6 @@ namespace Divinos_Burguer
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            //Views
-            builder.Services.AddSingleton<LoginPage>();
-
-            //ViewModels
-            builder.Services.AddSingleton<LoginPageViewModel>();
-
-            //Repositories
-            builder.Services.AddSingleton<IUserRepository, UserRepository>();
-
-            //Services
-            builder.Services.AddSingleton<IUserService, UserService>();
-            
             return builder.Build();
         }
 
@@ -69,5 +61,34 @@ namespace Divinos_Burguer
             return builder;
         }
 
+        private static MauiAppBuilder RegisterRepositories(this MauiAppBuilder builder)
+        {
+            builder.Services.AddSingleton<IUserRepository, UserRepository>();
+            builder.Services.AddSingleton<ITermRepository, TermRepository>();
+            // Adicione outros repositórios aqui
+            return builder;
+        }
+
+        private static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
+        {
+            builder.Services.AddSingleton<IUserService, UserService>();
+            builder.Services.AddSingleton<ITermService, TermService>();
+            // Adicione outros serviços aqui
+            return builder;
+        }
+
+        private static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
+        {
+            builder.Services.AddSingleton<LoginPageViewModel>();
+            // Adicione outros viewmodels aqui
+            return builder;
+        }
+
+        private static MauiAppBuilder RegisterViews(this MauiAppBuilder builder)
+        {
+            builder.Services.AddSingleton<LoginPage>();
+            // Adicione outras views aqui
+            return builder;
+        }
     }
 }

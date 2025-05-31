@@ -10,14 +10,17 @@ public class UserService : IUserService
     }
 
     // Operações básicas
-    public async Task<Users> GetUserByIdAsync(string id)
-        => await _userRepository.GetByIdAsync(id);
+    public async Task<Users> GetByIdDocument(string id)
+        => await _userRepository.GetByIdDocument(id);
 
-    public async Task AddUserAsync(Users user, string id)
-     => await _userRepository.AddAsync(user, id);
+    public async Task AddDocument(Users user, string id)
+     => await _userRepository.AddDocument(user, id);
 
-    public async Task SoftDeleteUserAsync(string userId)
-        => await _userRepository.DeleteAsync(userId);
+    public async Task DeleteDocument(string userId)
+        => await _userRepository.DeleteDocument(userId);
+
+    public async Task GetAllActiveDocuments()
+        => await _userRepository.GetAllActiveDocuments();
 
     //public async Task<Users> GetUserByEmailAsync(string email)
     //    => await _userRepository.GetByEmailAsync(email);
