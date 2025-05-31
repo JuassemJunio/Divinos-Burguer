@@ -49,11 +49,11 @@ namespace Divinos_Burguer
         {
             builder.ConfigureLifecycleEvents(events => {
 #if IOS
-    events.AddiOS(iOS => iOS.WillFinishLaunching((_, __) => {
-        CrossFirebase.Initialize();
-        FirebaseAuthGoogleImplementation.Initialize();
-        return false;
-    }));
+                events.AddiOS(iOS => iOS.WillFinishLaunching((_, __) => {
+                    CrossFirebase.Initialize();
+                    FirebaseAuthGoogleImplementation.Initialize();
+                    return false;
+                }));
 #elif ANDROID
                 events.AddAndroid(android => android.OnCreate((activity, _) => {
                     CrossFirebase.Initialize(activity);
