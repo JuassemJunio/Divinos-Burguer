@@ -35,6 +35,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>"***"</string>
+				<!--EXEMP:<string>com.googleusercontent.apps.1087786763726-ciddmj5g86b2ijrqj8hqjs2qei5mr95i</string>-->
 			</array>
 		</dict>
 	</array>
