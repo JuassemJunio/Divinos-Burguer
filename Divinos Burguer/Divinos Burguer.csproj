@@ -27,7 +27,8 @@
 		<ApplicationTitle>Divinos Burguer</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.divinos.divinosburguer</ApplicationId>
+		<ApplicationId>"***"</ApplicationId>
+		<!--EXEMP: <ApplicationId>com.divinos.divinosburguer</ApplicationId> -->
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
