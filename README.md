@@ -1,6 +1,6 @@
 # 🍔 Divinos Burguer
 
-Este projeto é um **exemplo funcional** de implantação do **[Plugin.Firebase](https://github.com/f-miyu/Plugin.Firebase)** em um app .NET MAUI, compatível com **Android** e **iOS**.  
+Este projeto é um **exemplo funcional** de implantação do **[Plugin.Firebase]([https://github.com/f-miyu/Plugin.Firebase](https://www.nuget.org/packages/Plugin.Firebase))** em um app .NET MAUI, compatível com **Android** e **iOS**.  
 
 ⚠️ **Atenção**: este projeto não está completo, ele serve como **base de estudo e referência** para a configuração do Firebase em projetos reais.
 
