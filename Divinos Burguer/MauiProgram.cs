@@ -50,6 +50,7 @@ namespace Divinos_Burguer
                 events.AddAndroid(android => android.OnCreate((activity, _) => {
                     CrossFirebase.Initialize(activity);
                     FirebaseAuthGoogleImplementation.Initialize("***");
+                    // EXMP:FirebaseAuthGoogleImplementation.Initialize("1087786763726-26d852i83gfiirknbg5vosa24lf6vbsl.apps.googleusercontent.com");
                 }));
 #endif
             });
