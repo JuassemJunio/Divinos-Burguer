@@ -10,7 +10,7 @@ Este projeto é um **exemplo funcional** de implantação do **[Plugin.Firebase]
 
 1. **Clone o repositório**  
    ```bash
-   git clone https://github.com/seu-usuario/divinos-burguer.git
+   git clone
    ```
 
 2. **Adicione suas credenciais Firebase**  
